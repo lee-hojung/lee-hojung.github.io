@@ -14,43 +14,81 @@
             padding: 0 20px; 
             background-color: #f9f9f9;
         }
-        .container {
+        .main-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
             background-color: #ffffff;
-            padding: 30px 40px;
+            padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
+        .photo-column {
+            flex: 0 0 200px;
+        }
+        .profile-photo {
+            width: 100%;
+            border-radius: 50%;
+        }
+        .info-column {
+            flex: 1;
+        }
         h1 { 
             font-size: 2.5em; 
+            margin-top: 0;
             margin-bottom: 0;
             color: #111;
         }
-        p { 
+        p, a { 
             font-size: 1.1em; 
+            margin-top: 5px;
         }
         .title {
             font-size: 1.3em;
             color: #555;
-            margin-top: 5px;
         }
-        .email {
-            font-weight: bold;
+        .contact p {
+            margin-bottom: 10px; /* 항목 간 간격 추가 */
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hojung Lee</h1>
-        <p class="title">Postdoctoral Researcher, Sociology Department @ Rice University</p>
-        <hr>
-        <h2>About Me</h2>
-        <p>
-            The website is currently under construction.
-        </p>
-        <h2>Contact</h2>
-        <p>
-            <span class="email">hojung@rice.edu</span>
-        </p>
+    <div class="main-container">
+
+        <div class="photo-column">
+            <img src="files/lee_profile.png" alt="Hojung Lee profile picture" class="profile-photo">
+        </div>
+
+        <div class="info-column">
+            <h1>Hojung Lee</h1>
+            <p class="title">Postdoctoral Researcher, Sociology Department @ Rice University</p>
+            <hr>
+            <h2>About Me</h2>
+            <p>
+                The website is currently under construction. 
+            </p>
+            
+            <!-- 연락처와 CV를 묶었습니다 -->
+            <div class="contact">
+                <h2>Contact</h2>
+                <p>
+                    <strong>Email:</strong> hojung@rice.edu
+                </p>
+                <p>
+                    <!-- CV 다운로드 링크를 추가했습니다 -->
+                    <strong>CV:</strong> <a href="files/CV_Lee.pdf" target="_blank">[Download PDF]</a>
+                </p>
+            </div>
+
+        </div>
+        
     </div>
 </body>
 </html>
