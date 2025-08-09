@@ -50,6 +50,23 @@
             margin-top: -10px; /* 위쪽 여백 줄이기 */
             margin-bottom: 15px;
         }
+        /* --- ✨✨✨ 모바일 최적화 규칙이 다시 포함되었습니다! ✨✨✨ --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px; /* 모바일에서는 여백을 줄임 */
+            }
+            .site-title {
+                font-size: 2em; /* 모바일에서는 제목 크기를 줄임 */
+            }
+            .site-nav li {
+                margin: 0 10px; /* 모바일에서는 메뉴 간격을 줄임 */
+            }
+            /* 가장 중요한 부분: 2단 레이아웃을 세로로 쌓기 */
+            .main-container {
+                flex-direction: column; /* 가로 정렬을 세로 정렬로 변경 */
+                gap: 30px; /* 세로 간격 조정 */
+            }
+        }
     </style>
 </head>
 <body>
