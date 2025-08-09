@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teaching - Hojung Lee</title>
-    <!-- 스타일 코드는 index.html과 완전히 동일합니다 -->
     <style>
+        /* 이전과 동일한 기본 스타일 */
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.8; color: #333; max-width: 900px; margin: 0 auto; padding: 40px 20px; background-color: #fff; }
         .site-header { text-align: center; padding-bottom: 20px; margin-bottom: 40px; }
         .site-title { font-size: 2.5em; color: #4a7d9f; margin: 0 0 20px 0; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; }
@@ -14,31 +14,103 @@
         .site-nav li { display: inline-block; margin: 0 15px; }
         .site-nav a { text-decoration: none; color: #555; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; padding: 5px 0; }
         .site-nav a.active { font-weight: bold; color: #000; }
-        h2 { font-size: 1.2em; font-weight: normal; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
+        
+        /* --- Teaching 페이지 전용 스타일 추가 --- */
+        h2 {
+            font-size: 1.5em;
+            font-weight: 400;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px; /* 섹션 간 간격 */
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        /* 강의 목록 스타일 */
+        .course-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .course-list li {
+            margin-bottom: 1em;
+        }
+        .course-title {
+            display: block; /* 줄바꿈을 위해 block으로 설정 */
+            font-weight: bold;
+        }
+        .course-details {
+            font-style: italic;
+            color: #555;
+        }
+        .course-list a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .course-list a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. 사이트 헤더 -->
+    <!-- 1. 사이트 헤더 (동일) -->
     <header class="site-header">
         <h1 class="site-title">Hojung Lee</h1>
         <nav class="site-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="research.html">Research</a></li>
-                <!-- 현재 Teaching 페이지이므로 여기에 'active' 클래스 적용 -->
                 <li><a href="teaching.html" class="active">Teaching</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- 2. 메인 콘텐츠: Teaching 내용 -->
+    <!-- 2. 메인 콘텐츠: 새롭게 정리된 강의 경력 -->
     <main>
-        <h2>Teaching Experience</h2>
-        <p>여기에 강의 경력 목록을 추가하세요.</p>
+        <section id="instructor">
+            <h2>Instructor of Record</h2>
+            <h3>University of Delaware</h3>
+            <ul class="course-list">
+                <li>
+                    <span class="course-title">SPPA 704: Advanced Quantitative Methods</span>
+                    <span class="course-details">(Spring 2025)</span>
+                    <!-- 하이퍼링크: 파일 이름을 당신이 올린 파일 이름으로 꼭 확인/수정하세요! -->
+                    - <a href="files/courseeval_ud_appa704_spr25.pdf" target="_blank">Course Evaluation (4.93/5)</a>
+                </li>
+            </ul>
+        </section>
 
-        <h2>Syllabi</h2>
-        <p>여기에 강의 계획서(Syllabi) 링크 등을 추가하세요.</p>
+        <section id="ta">
+            <h2>Teaching Assistant</h2>
+            <h3>University of Delaware</h3>
+            <ul class="course-list">
+                <li>
+                    <span class="course-title">EDUC884: Advanced Research Design - Causal Inference</span>
+                    <span class="course-details">(Spring 2024)</span>
+                </li>
+            </ul>
+
+            <h3>Seoul National University</h3>
+            <span class="course-details">(Comparable U.S. Course Numbering in Parentheses)</span>
+            <ul class="course-list">
+                <li>
+                    <span class="course-title">212.301 (ECON301): Econometrics</span>
+                    <span class="course-details">(Fall 2019)</span>
+                </li>
+                <li>
+                    <span class="course-title">212.216 (ECON216): Understanding Market Economy</span>
+                    <span class="course-details">(Spring 2018, Spring 2019)</span>
+                </li>
+                <li>
+                    <span class="course-title">212.305 (ECON305): Public Finance</span>
+                    <span class="course-details">(Fall 2018, Fall 2017)</span>
+                </li>
+            </ul>
+        </section>
     </main>
 
 </body>
