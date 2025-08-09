@@ -15,49 +15,45 @@
         .site-nav a { text-decoration: none; color: #555; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; padding: 5px 0; }
         .site-nav a.active { font-weight: bold; color: #000; }
         
-        /* --- Teaching 페이지 전용 스타일 추가 --- */
-        h2 {
-            font-size: 1.5em;
-            font-weight: 400;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            margin-top: 40px; /* 섹션 간 간격 */
-            margin-bottom: 20px;
-        }
-        h3 {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        /* 강의 목록 스타일 */
+        /* --- Teaching 페이지 전용 스타일 --- */
+        h2 { font-size: 1.5em; font-weight: 400; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px; }
+        h3 { font-size: 1.2em; font-weight: bold; margin-top: 30px; margin-bottom: 15px; }
+
+        /* --- ✨✨✨ 이 부분이 복원되었습니다! ✨✨✨ --- */
         .course-list {
-            list-style-type: none;
+            list-style-type: none; /* 목록 앞의 점(bullet)을 없앱니다 */
             padding-left: 0;
         }
         .course-list li {
-            margin-bottom: 1em;
+            margin-bottom: 1em; /* 각 강의 항목 사이의 세로 간격 */
         }
         .course-title {
-            font-weight: bold;
-            margin-right: 0.5em;
+            font-weight: bold; /* 강의 제목을 굵게 */
+            margin-right: 0.5em; /* 제목과 학기 정보 사이 간격 */
         }
         .course-details {
-            font-style: italic;
-            color: #555;
+            font-style: italic; /* 학기 정보를 이탤릭체로 */
+            color: #555; /* 학기 정보를 연한 회색으로 */
         }
         .course-list a {
-            color: #007BFF;
+            color: #007BFF; /* 링크 색상 */
             text-decoration: none;
         }
         .course-list a:hover {
             text-decoration: underline;
         }
+        /* --- ✨✨✨ 이 부분은 이전에 추가한 부분입니다 ✨✨✨ --- */
+        .university-note {
+            display: block;
+            font-style: italic;
+            color: #555;
+            margin-top: -10px; /* 위쪽 여백 줄이기 */
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. 사이트 헤더 (동일) -->
     <header class="site-header">
         <h1 class="site-title">Hojung Lee</h1>
         <nav class="site-nav">
@@ -69,7 +65,6 @@
         </nav>
     </header>
 
-    <!-- 2. 메인 콘텐츠: 새롭게 정리된 강의 경력 -->
     <main>
         <section id="instructor">
             <h2>Instructor of Record</h2>
@@ -78,8 +73,7 @@
                 <li>
                     <span class="course-title">SPPA 704: Advanced Quantitative Methods</span>
                     <span class="course-details">(Spring 2025)</span>
-                    <!-- 하이퍼링크: 파일 이름을 당신이 올린 파일 이름으로 꼭 확인/수정하세요! -->
-                    - <a href="files/courseeval_ud_appa704_spr25.pdf" target="_blank">Course Evaluation (4.93/5)</a>
+                    - <a href="assets/pdf/sppa704_eval.pdf" target="_blank">Course Evaluation (4.93/5)</a>
                 </li>
             </ul>
         </section>
@@ -95,7 +89,7 @@
             </ul>
 
             <h3>Seoul National University</h3>
-            <span class="course-details">(Comparable U.S. Course Numbering in Parentheses)</span>
+            <span class="university-note">(Comparable U.S. Course Numbering in Parentheses)</span>
             <ul class="course-list">
                 <li>
                     <span class="course-title">212.301 (ECON301): Econometrics</span>
