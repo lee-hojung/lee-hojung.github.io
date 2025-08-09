@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research - Hojung Lee</title>
-    <!-- 스타일 코드는 index.html과 완전히 동일합니다 -->
     <style>
+        /* 이전과 동일한 기본 스타일 */
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.8; color: #333; max-width: 900px; margin: 0 auto; padding: 40px 20px; background-color: #fff; }
         .site-header { text-align: center; padding-bottom: 20px; margin-bottom: 40px; }
         .site-title { font-size: 2.5em; color: #4a7d9f; margin: 0 0 20px 0; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; }
@@ -14,31 +14,94 @@
         .site-nav li { display: inline-block; margin: 0 15px; }
         .site-nav a { text-decoration: none; color: #555; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; padding: 5px 0; }
         .site-nav a.active { font-weight: bold; color: #000; }
-        h2 { font-size: 1.2em; font-weight: normal; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
+        
+        /* --- Research 페이지 전용 스타일 추가 --- */
+        h2 {
+            font-size: 1.5em;
+            font-weight: 400;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px; /* 섹션 간 간격 */
+            margin-bottom: 20px;
+        }
+        /* 각 논문 항목 스타일 */
+        .publication-entry {
+            margin-bottom: 2em; /* 각 항목 사이의 세로 간격 */
+        }
+        .publication-entry p {
+            margin: 0;
+            padding: 0;
+        }
+        /* 링크 스타일 */
+        .publication-entry a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .publication-entry a:hover {
+            text-decoration: underline;
+        }
+        /* 상태 표시 (R&R 등) 스타일 */
+        .status-note {
+            font-style: italic;
+            color: #888;
+            margin-left: 8px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. 사이트 헤더 -->
+    <!-- 1. 사이트 헤더 (동일) -->
     <header class="site-header">
         <h1 class="site-title">Hojung Lee</h1>
         <nav class="site-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <!-- 현재 Research 페이지이므로 여기에 'active' 클래스 적용 -->
                 <li><a href="research.html" class="active">Research</a></li>
                 <li><a href="teaching.html">Teaching</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- 2. 메인 콘텐츠: Research 내용 -->
+    <!-- 2. 메인 콘텐츠: 새롭게 정리된 논문 목록 -->
     <main>
-        <h2>Working Papers</h2>
-        <p>여기에 Working Paper 목록을 추가하세요.</p>
         
-        <h2>Publications</h2>
-        <p>여기에 출판된 논문 목록을 추가하세요.</p>
+        <section id="publications">
+            <h2>Publications</h2>
+            <div class="publication-entry">
+                <p>Ran, F. X., & <strong>Lee, H.</strong> (2025). Does Corequisite Remediation Work for Everyone? An Exploration of Heterogeneous Effects and Mechanisms. <em>Education Finance and Policy</em>. <a href="https://doi.org/10.1162/edfp_a_00451" target="_blank">https://doi.org/10.1162/edfp_a_00451</a></p>
+            </div>
+            <div class="publication-entry">
+                <p><strong>Lee, H.</strong>, Shores, K., & Williams, E. (2022). The Distribution of School Resources in the United States: A Comparative Analysis Across Levels of Governance, Student Subgroups, and Educational Resources. <em>Peabody Journal of Education, 97</em>(4), 395–411. <a href="https://doi.org/10.1080/0161956X.2022.2107369" target="_blank">https://doi.org/10.1080/0161956X.2022.2107369</a></p>
+            </div>
+        </section>
+
+        <section id="under-review">
+            <h2>Papers under Review</h2>
+            <div class="publication-entry">
+                <p>Ran, F. X., <strong>Lee, H.</strong>, & Eze, J. (2024+). Corequisite reform modality: The implementation and student outcomes of online corequisite courses. <span class="status-note">[Under Review]</span></p>
+            </div>
+            <div class="publication-entry">
+                <p>Huang, Y., <strong>Lee, H.</strong>, Lentz, A., & Shores, K. Misclassification of Career and Technical Education Concentrators: Analysis and Policy Recommendations. (EdWorkingPaper: 23-889). <span class="status-note">[Revise and Resubmit]</span>. <a href="https://doi.org/10.26300/esab-m159" target="_blank">https://doi.org/10.26300/esab-m159</a></p>
+            </div>
+        </section>
+
+        <section id="op-eds">
+            <h2>Op-Eds</h2>
+            <div class="publication-entry">
+                <p><strong>Lee, H.</strong>, & Williams, E. (2021). Expanding Title I could eliminate K-12 spending gaps—if the funds are well targeted. <em>The Brookings Institution.</em> <a href="https://www.brookings.edu/articles/expanding-title-i-could-eliminate-k-12-spending-gaps-if-the-funds-are-well-targeted/" target="_blank">[Link]</a></p>
+            </div>
+            <div class="publication-entry">
+                <p>Shores, K., <strong>Lee, H.</strong>, & Williams, E. (2021). Increasing Title I funds should target largest sources of school spending inequalities—across states. <em>The Brookings Institution.</em> <a href="https://www.brookings.edu/articles/increasing-title-i-funds-should-target-largest-sources-of-school-spending-inequalities-across-states/" target="_blank">[Link]</a></p>
+            </div>
+        </section>
+
+        <section id="working-papers">
+            <h2>Working Paper with Draft Available</h2>
+            <div class="publication-entry">
+                <p>Shores, K. A., <strong>Lee, H.</strong>, and Lentz, A. (2024). The Architecture of Expected Wage Gaps: Between- and Within-School Sources of Career Education Inequality. (EdWorkingPaper: 24-1105). <a href="https://doi.org/10.26300/gz36-de58" target="_blank">https://doi.org/10.26300/gz36-de58</a></p>
+            </div>
+        </section>
+        
     </main>
 
 </body>
