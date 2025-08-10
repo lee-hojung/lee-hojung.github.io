@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 이 페이지의 공식 주소를 명시합니다 -->
     <link rel="canonical" href="https://hojunglee.com/vitae.html" />
     <title>Vitae - Hojung Lee</title>
     <style>
@@ -17,23 +16,22 @@
         .site-nav a { text-decoration: none; color: #555; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; padding: 5px 0; }
         .site-nav a.active { font-weight: bold; color: #000; }
         
-        /* --- Vitae 페이지 전용 스타일 --- */
+        /* Vitae 페이지 전용 스타일 */
         h2 { font-size: 1.5em; font-weight: 400; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px; }
         .vitae-section a { color: #007BFF; text-decoration: none; }
         .vitae-section a:hover { text-decoration: underline; }
+        .cv-entry { display: flex; gap: 20px; margin-bottom: 1em; }
+        .cv-year { flex: 0 0 120px; color: #555; }
+        .cv-description { flex: 1; }
 
-        /* ✨✨✨ 2단 레이아웃을 위한 새로운 스타일 ✨✨✨ */
-        .cv-entry {
-            display: flex; /* Flexbox 레이아웃 적용 */
-            gap: 20px; /* 두 열 사이의 간격 */
-            margin-bottom: 1em; /* 각 항목 사이의 세로 간격 */
+        /* ✨✨✨ 역할 목록을 위한 새로운 스타일 ✨✨✨ */
+        .role-list {
+            margin-top: 0.5em; /* 기관 이름과 역할 목록 사이의 간격 */
+            padding-left: 20px; /* 일반적인 글머리 기호 들여쓰기 */
+            list-style-type: disc; /* 동그란 글머리 기호 */
         }
-        .cv-year {
-            flex: 0 0 120px; /* 왼쪽 열(연도)의 너비를 120px로 고정 */
-            color: #555; /* 연도 글씨를 살짝 연하게 */
-        }
-        .cv-description {
-            flex: 1; /* 오른쪽 열(내용)이 나머지 공간을 모두 차지 */
+        .role-list li {
+            margin-bottom: 0.5em; /* 각 역할 사이의 간격 */
         }
 
         /* 모바일 최적화 규칙 */
@@ -41,16 +39,8 @@
             body { padding: 20px 15px; }
             .site-title { font-size: 2em; }
             .site-nav li { margin: 0 10px; }
-            /* 모바일에서는 2단 레이아웃을 다시 세로로 쌓습니다. */
-            .cv-entry {
-                flex-direction: column;
-                gap: 5px; /* 세로 간격을 줄임 */
-                margin-bottom: 1.5em;
-            }
-            .cv-year {
-                flex-basis: auto; /* 너비 고정을 해제 */
-                font-weight: bold; /* 모바일에서는 연도를 굵게 표시 */
-            }
+            .cv-entry { flex-direction: column; gap: 5px; margin-bottom: 1.5em; }
+            .cv-year { flex-basis: auto; font-weight: bold; }
         }
     </style>
 </head>
@@ -69,10 +59,9 @@
         </nav>
     </header>
 
-    <!-- 2. 메인 콘텐츠: 새로운 2단 레이아웃 적용 -->
+    <!-- 2. 메인 콘텐츠 -->
     <main>
         <section class="vitae-section">
-            <!-- CV 다운로드 링크는 2단 레이아웃이 필요 없으므로 그대로 둡니다. -->
             <p>Click <a href="assets/pdf/cv.pdf" target="_blank"><strong>here</strong></a> for my most updated CV.</p>
         </section>
 
@@ -97,6 +86,23 @@
             <div class="cv-entry">
                 <div class="cv-year">2012 - 2017</div>
                 <div class="cv-description">B.A. in Economics, Linguistics (Double Major), Hankuk University of Foreign Studies</div>
+            </div>
+        </section>
+
+        <!-- ✨✨✨ 3. 새로 추가된 Professional Experience 섹션 ✨✨✨ -->
+        <section class="vitae-section">
+            <h2>Professional Experience</h2>
+            <div class="cv-entry">
+                <div class="cv-year">2019 - 2020</div>
+                <div class="cv-description">
+                    <strong>Institute of Economic Research (IER), Seoul National University</strong>
+                    <ul class="role-list">
+                        <li>Managing Editor, <em>Korean Economic Journal</em></li>
+                        <li>Web Manager, IER Homepage</li>
+                        <li>Organizing Assistant, IER Public Lecture Series</li>
+                        <li>Organizing Assistant, The 15th Joint Economic Workshop of Seoul National University and the University of Tokyo (Jan 2020)</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>
