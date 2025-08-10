@@ -34,30 +34,65 @@
             margin-bottom: 0.5em; /* 각 역할 사이의 간격 */
         }
 
-        /* 모바일 최적화 규칙 */
-        @media (max-width: 768px) {
-            body { padding: 20px 15px; }
-            .site-title { font-size: 2em; }
-            .site-nav li { margin: 0 10px; }
-            .cv-entry { flex-direction: column; gap: 5px; margin-bottom: 1.5em; }
-            .cv-year { flex-basis: auto; font-weight: bold; }
+           /* --- 햄버거 메뉴를 위한 스타일 --- */
+    .menu-toggle { display: none; /* 평소엔 숨김 */ }
+
+    @media (max-width: 768px) {
+        body { padding: 20px 15px; }
+        .site-title { font-size: 2em; }
+        .site-nav { border: none; padding: 0; position: relative; } /* 모바일에서는 선 제거 */
+        
+        /* 햄버거 아이콘 스타일 */
+        .menu-toggle {
+            display: block; /* 모바일에서만 보임 */
+            position: absolute;
+            top: -65px; /* 이름 위쪽으로 위치 조정 */
+            left: 0;
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
         }
+        
+        /* 메뉴 링크 숨기기 및 스타일 */
+        .site-nav .nav-links {
+            display: none; /* 평소엔 숨김 */
+            flex-direction: column;
+            width: 100%;
+            text-align: left;
+            background-color: #f8f8f8;
+            padding: 10px 0;
+            border-top: 1px solid #e0e0e0;
+            margin-top: -20px;
+        }
+        .site-nav .nav-links.active {
+            display: flex; /* active 클래스가 붙으면 보임 */
+        }
+        .site-nav .nav-links li {
+            display: block;
+            padding: 10px 20px;
+        }
+        .main-container { flex-direction: column; gap: 30px; }
+    }
+
     </style>
 </head>
 <body>
 
     <!-- 1. 사이트 헤더 (동일) -->
-    <header class="site-header">
-        <h1 class="site-title">Hojung Lee</h1>
-        <nav class="site-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="vitae.html" class="active">Vitae</a></li>
-                <li><a href="research.html">Research</a></li>
-                <li><a href="teaching.html">Teaching</a></li>
-            </ul>
-        </nav>
+   <header class="site-header">
+    <h1 class="site-title">Hojung Lee</h1>
+    <nav class="site-nav">
+        <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="vitae.html">Vitae</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="teaching.html">Teaching</a></li>
+        </ul>
+    </nav>
     </header>
+
 
     <!-- 2. 메인 콘텐츠 -->
     <main>
@@ -103,5 +138,12 @@
         </section>
     </main>
 
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+
+    
 </body>
 </html>
