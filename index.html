@@ -31,23 +31,46 @@
         .profile-photo { width: 100%; height: auto; }
         h2 { font-size: 1.2em; font-weight: normal; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 0; }
 
-        /* --- ✨✨✨ 모바일 최적화 규칙이 다시 포함되었습니다! ✨✨✨ --- */
-        @media (max-width: 768px) {
-            body {
-                padding: 20px 15px; /* 모바일에서는 여백을 줄임 */
-            }
-            .site-title {
-                font-size: 2em; /* 모바일에서는 제목 크기를 줄임 */
-            }
-            .site-nav li {
-                margin: 0 10px; /* 모바일에서는 메뉴 간격을 줄임 */
-            }
-            /* 가장 중요한 부분: 2단 레이아웃을 세로로 쌓기 */
-            .main-container {
-                flex-direction: column; /* 가로 정렬을 세로 정렬로 변경 */
-                gap: 30px; /* 세로 간격 조정 */
-            }
+       /* --- 햄버거 메뉴를 위한 스타일 --- */
+    .menu-toggle { display: none; /* 평소엔 숨김 */ }
+
+    @media (max-width: 768px) {
+        body { padding: 20px 15px; }
+        .site-title { font-size: 2em; }
+        .site-nav { border: none; padding: 0; position: relative; } /* 모바일에서는 선 제거 */
+        
+        /* 햄버거 아이콘 스타일 */
+        .menu-toggle {
+            display: block; /* 모바일에서만 보임 */
+            position: absolute;
+            top: -65px; /* 이름 위쪽으로 위치 조정 */
+            left: 0;
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
         }
+        
+        /* 메뉴 링크 숨기기 및 스타일 */
+        .site-nav .nav-links {
+            display: none; /* 평소엔 숨김 */
+            flex-direction: column;
+            width: 100%;
+            text-align: left;
+            background-color: #f8f8f8;
+            padding: 10px 0;
+            border-top: 1px solid #e0e0e0;
+            margin-top: -20px;
+        }
+        .site-nav .nav-links.active {
+            display: flex; /* active 클래스가 붙으면 보임 */
+        }
+        .site-nav .nav-links li {
+            display: block;
+            padding: 10px 20px;
+        }
+        .main-container { flex-direction: column; gap: 30px; }
+    }
     </style>
 </head>
 <body>
@@ -79,5 +102,11 @@
         </div>
     </main>
 
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+    
 </body>
 </html>
