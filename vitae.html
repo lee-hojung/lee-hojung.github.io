@@ -5,78 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="https://hojunglee.com/vitae.html" />
     <title>Vitae - Hojung Lee</title>
-    <style>
-        /* 모든 페이지에 공통으로 들어가는 스타일 */
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.8; color: #333; max-width: 900px; margin: 0 auto; padding: 40px 20px; background-color: #fff; }
-        .site-header { text-align: center; padding-bottom: 20px; margin-bottom: 40px; }
-        .site-title { font-size: 2.5em; color: #4a7d9f; margin: 0 0 20px 0; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; }
-        .site-title a {color: inherit;text-decoration: none; }
-        .site-nav { border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; padding: 10px 0; }
-        .site-nav ul { margin: 0; padding: 0; list-style: none; }
-        .site-nav li { display: inline-block; margin: 0 15px; }
-        .site-nav a { text-decoration: none; color: #555; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; padding: 5px 0; }
-        .site-nav a.active { font-weight: bold; color: #000; }
-        
-        /* Vitae 페이지 전용 스타일 */
-        h2 { font-size: 1.5em; font-weight: 400; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px; }
-        .vitae-section a { color: #007BFF; text-decoration: none; }
-        .vitae-section a:hover { text-decoration: underline; }
-        .cv-entry { display: flex; gap: 20px; margin-bottom: 1em; }
-        .cv-year { flex: 0 0 120px; color: #555; }
-        .cv-description { flex: 1; }
+  <style>
+    /* 모든 페이지에 공통으로 들어가는 스타일 */
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.8; color: #333; max-width: 900px; margin: 0 auto; padding: 40px 20px; background-color: #fff; }
+    .site-header { text-align: center; padding-bottom: 20px; margin-bottom: 40px; position: relative; }
+    .site-title { font-size: 2.5em; color: #4a7d9f; margin: 0 0 20px 0; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; }
+    .site-title a { color: inherit; text-decoration: none; }
+    .site-nav { border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; padding: 10px 0; }
+    .site-nav .nav-links { margin: 0; padding: 0; list-style: none; }
+    .site-nav .nav-links li { display: inline-block; margin: 0 15px; }
+    .site-nav .nav-links a { text-decoration: none; color: #555; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; padding: 5px 0; }
+    .site-nav .nav-links a.active { font-weight: bold; color: #000; }
+    .menu-toggle { display: none; }
+    
+    /* Vitae 페이지 전용 스타일 (그대로 유지) */
+    h2 { font-size: 1.5em; font-weight: 400; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px; }
+    .vitae-section a { color: #007BFF; text-decoration: none; }
+    .vitae-section a:hover { text-decoration: underline; }
+    .cv-entry { display: flex; gap: 20px; margin-bottom: 1em; }
+    .cv-year { flex: 0 0 120px; color: #555; }
+    .cv-description { flex: 1; }
+    .role-list { margin-top: 0.5em; padding-left: 20px; list-style-type: disc; }
+    .role-list li { margin-bottom: 0.5em; }
 
-        /* ✨✨✨ 역할 목록을 위한 새로운 스타일 ✨✨✨ */
-        .role-list {
-            margin-top: 0.5em; /* 기관 이름과 역할 목록 사이의 간격 */
-            padding-left: 20px; /* 일반적인 글머리 기호 들여쓰기 */
-            list-style-type: disc; /* 동그란 글머리 기호 */
-        }
-        .role-list li {
-            margin-bottom: 0.5em; /* 각 역할 사이의 간격 */
-        }
-
-           /* --- 햄버거 메뉴를 위한 스타일 --- */
-    .menu-toggle { display: none; /* 평소엔 숨김 */ }
-
+    /* 모바일 최적화 규칙 (햄버거 메뉴 + Vitae 페이지 전용 규칙 포함) */
     @media (max-width: 768px) {
         body { padding: 20px 15px; }
         .site-title { font-size: 2em; }
-        .site-nav { border: none; padding: 0; position: relative; } /* 모바일에서는 선 제거 */
-        
-        /* 햄버거 아이콘 스타일 */
-        .menu-toggle {
-            display: block; /* 모바일에서만 보임 */
-            position: absolute;
-            top: -65px; /* 이름 위쪽으로 위치 조정 */
-            left: 0;
-            background: none;
-            border: none;
-            font-size: 30px;
-            cursor: pointer;
-        }
-        
-        /* 메뉴 링크 숨기기 및 스타일 */
-        .site-nav .nav-links {
-            display: none; /* 평소엔 숨김 */
-            flex-direction: column;
-            width: 100%;
-            text-align: left;
-            background-color: #f8f8f8;
-            padding: 10px 0;
-            border-top: 1px solid #e0e0e0;
-            margin-top: -20px;
-        }
-        .site-nav .nav-links.active {
-            display: flex; /* active 클래스가 붙으면 보임 */
-        }
-        .site-nav .nav-links li {
-            display: block;
-            padding: 10px 20px;
-        }
-        .main-container { flex-direction: column; gap: 30px; }
+        .site-nav { border: none; padding: 0; }
+        .menu-toggle { display: block; position: absolute; top: 48px; left: 0; transform: translateY(-50%); background: none; border: none; font-size: 30px; cursor: pointer; z-index: 1000; }
+        .site-nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; text-align: left; background-color: #f8f8f8; padding: 10px 0; border-top: 1px solid #e0e0e0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .site-nav .nav-links.active { display: flex; }
+        .site-nav .nav-links li { display: block; padding: 10px 20px; }
+        .cv-entry { flex-direction: column; gap: 5px; margin-bottom: 1.5em; }
+        .cv-year { flex-basis: auto; font-weight: bold; }
     }
-
-    </style>
+</style>
 </head>
 <body>
 
