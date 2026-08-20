@@ -110,7 +110,7 @@
     .admin-step { border: 1px solid #e0e0e0; padding: 25px; margin-bottom: 25px; }
     .admin-step h3 { margin-top: 0; }
     .admin-step label { display: block; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; color: #666; margin: 15px 0 8px 0; }
-    .admin-step input[type="password"], .admin-step input[type="file"], .admin-step textarea { width: 100%; box-sizing: border-box; font-family: inherit; font-size: 1em; padding: 10px 12px; border: 1px solid #ccc; background: #fff; }
+    .admin-step input[type="text"], .admin-step input[type="password"], .admin-step input[type="file"], .admin-step textarea { width: 100%; box-sizing: border-box; font-family: inherit; font-size: 1em; padding: 10px 12px; border: 1px solid #ccc; background: #fff; }
     .admin-step textarea { min-height: 320px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; line-height: 1.6; }
     .admin-step .hint { font-size: 0.85em; color: #888; margin: 8px 0 0 0; }
     .admin-button { font-family: inherit; font-size: 0.9em; letter-spacing: 1px; text-transform: uppercase; padding: 10px 22px; border: none; background-color: #4a7d9f; color: #fff; cursor: pointer; }
@@ -145,7 +145,6 @@
             <li><a href="research.html">Research</a></li>
             <li><a href="teaching.html">Teaching</a></li>
             <li><a href="media.html">Media</a></li>
-            <li><a href="bookclub.html" class="active">Book Club</a></li>
         </ul>
     </nav>
 </header>
@@ -160,42 +159,50 @@
         </p>
 
         <div class="admin-step">
-            <h3>1. 비밀번호</h3>
-            <label for="pw1">북클럽 비밀번호</label>
-            <input type="password" id="pw1" autocomplete="new-password">
-            <label for="pw2">비밀번호 확인</label>
-            <input type="password" id="pw2" autocomplete="new-password">
-            <p class="hint">멤버에게 공유할 비밀번호입니다. 12자 이상, 추측하기 어려운 문장을 권합니다. 비밀번호를 바꾸려면 모든 자료를 새 비밀번호로 다시 암호화해야 합니다.</p>
+            <h3>1. 시즌</h3>
+            <label for="load-manifest">기존 seasons.json 불러오기 (있으면)</label>
+            <input type="file" id="load-manifest" accept=".json,application/json">
+            <p class="hint" id="manifest-summary">아직 불러온 시즌 목록이 없습니다. 첫 시즌이라면 그대로 진행하세요.</p>
+            <label for="season-id">시즌 ID</label>
+            <input type="text" id="season-id" value="s1" spellcheck="false">
+            <p class="hint">영문·숫자·<code>-</code>·<code>_</code> 만 씁니다. 파일 경로에 그대로 드러나므로 <code>s1</code>, <code>s2</code> 처럼 중립적인 값을 권합니다. 기존 시즌과 같은 ID를 쓰면 그 시즌을 덮어쓰게 됩니다.</p>
         </div>
 
         <div class="admin-step">
-            <h3>2. 자료 파일 (선택)</h3>
+            <h3>2. 이 시즌의 비밀번호</h3>
+            <label for="pw1">비밀번호</label>
+            <input type="password" id="pw1" autocomplete="new-password">
+            <label for="pw2">비밀번호 확인</label>
+            <input type="password" id="pw2" autocomplete="new-password">
+            <p class="hint">시즌마다 다른 비밀번호를 쓰세요. 12자 이상, 추측하기 어려운 문장을 권합니다. 지난 시즌 비밀번호는 그 시즌 자료만 열고, 새 시즌은 열지 못합니다.</p>
+        </div>
+
+        <div class="admin-step">
+            <h3>3. 자료 파일 (선택)</h3>
             <label for="files">PDF 등 올릴 파일</label>
             <input type="file" id="files" multiple>
-            <p class="hint">파일마다 <code>파일이름.enc</code> 가 만들어집니다. 아래 스니펫을 3번 본문에 붙여 넣으면 멤버가 클릭해서 내려받을 수 있습니다.</p>
+            <p class="hint">파일마다 <code>파일이름.enc</code> 가 만들어집니다. 아래 스니펫을 4번 본문에 붙여 넣으면 멤버가 클릭해서 내려받을 수 있습니다.</p>
             <ul class="snippet-list" id="snippets"></ul>
         </div>
 
         <div class="admin-step">
-            <h3>3. 페이지 본문</h3>
+            <h3>4. 페이지 본문</h3>
             <label for="content">본문 HTML</label>
             <textarea id="content" spellcheck="false"></textarea>
-            <p class="hint">
-                수정할 때는 기존 <code>content.enc</code> 를 불러오세요 (같은 비밀번호 필요).
-            </p>
+            <p class="hint">수정할 때는 그 시즌의 기존 <code>content.enc</code> 를 불러오세요 (해당 시즌 비밀번호 필요).</p>
             <label for="load-existing">기존 content.enc 불러오기</label>
             <input type="file" id="load-existing" accept=".enc">
         </div>
 
         <div class="admin-step">
-            <h3>4. 암호화</h3>
+            <h3>5. 암호화</h3>
             <button type="button" class="admin-button" id="encrypt-button">암호화하기</button>
             <p class="status-message info" id="admin-status" role="status" aria-live="polite"></p>
             <ul class="result-list" id="results"></ul>
-            <p class="hint" id="upload-hint" hidden>
-                내려받은 파일을 GitHub 저장소의 <code>files/bookclub/</code> 폴더에 업로드하면 끝입니다.
-                (같은 이름으로 올리면 기존 파일을 덮어씁니다.)
-            </p>
+            <div id="upload-hint" hidden>
+                <p class="hint">GitHub 저장소에 아래 경로로 업로드하면 끝입니다. 같은 이름으로 올리면 덮어쓰기가 됩니다.</p>
+                <ul class="snippet-list" id="upload-paths"></ul>
+            </div>
         </div>
     </main>
 
@@ -268,8 +275,9 @@
     }
 
     /* --- 관리 도구 동작 --- */
+    const SEASON_ID = /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
     const TEMPLATE = [
-        '<h3>2026년 3월 모임</h3>',
+        '<h3>2026 봄 시즌</h3>',
         '<p><strong>책:</strong> 저자, 『책 제목』 (출판사, 2020) — 1~4장</p>',
         '<p><strong>일시:</strong> 3월 14일 (토) 오후 3시 / 온라인</p>',
         '<ul>',
@@ -277,12 +285,15 @@
         '  <li>토론 질문: ...</li>',
         '</ul>',
         '',
-        '<h3>지난 모임 자료</h3>',
+        '<h3>이 시즌 자료</h3>',
         '<ul>',
-        '  <li><a href="#" data-enc="예시.pdf.enc">1월 발제문 (PDF)</a></li>',
+        '  <li><a href="#" data-enc="예시.pdf.enc">1주차 발제문 (PDF)</a></li>',
         '</ul>'
     ].join('\n');
 
+    const loadManifest = document.getElementById('load-manifest');
+    const manifestSummary = document.getElementById('manifest-summary');
+    const seasonIdInput = document.getElementById('season-id');
     const pw1 = document.getElementById('pw1');
     const pw2 = document.getElementById('pw2');
     const filesInput = document.getElementById('files');
@@ -293,6 +304,9 @@
     const statusBox = document.getElementById('admin-status');
     const results = document.getElementById('results');
     const uploadHint = document.getElementById('upload-hint');
+    const uploadPaths = document.getElementById('upload-paths');
+
+    let knownSeasons = [];
 
     contentBox.value = TEMPLATE;
 
@@ -301,6 +315,30 @@
         statusBox.className = 'status-message ' + (isError ? 'error' : 'info');
     }
 
+    function suggestSeasonId() {
+        for (let n = 1; n <= 999; n++) {
+            if (knownSeasons.indexOf('s' + n) === -1) return 's' + n;
+        }
+        return '';
+    }
+
+    loadManifest.addEventListener('change', async function () {
+        const file = loadManifest.files[0];
+        if (!file) return;
+        try {
+            const parsed = JSON.parse(await file.text());
+            const list = Array.isArray(parsed) ? parsed : (parsed && parsed.seasons);
+            if (!Array.isArray(list)) throw new Error('형식이 올바르지 않습니다');
+            knownSeasons = list.filter(function (id) { return typeof id === 'string' && SEASON_ID.test(id); });
+            manifestSummary.textContent = '기존 시즌: ' + (knownSeasons.join(', ') || '(없음)');
+            seasonIdInput.value = suggestSeasonId();
+            setStatus('시즌 목록을 불러왔습니다.', false);
+        } catch (error) {
+            manifestSummary.textContent = 'seasons.json 을 읽지 못했습니다.';
+            setStatus('seasons.json 을 읽지 못했습니다: ' + error.message, true);
+        }
+        loadManifest.value = '';
+    });
 
     filesInput.addEventListener('change', function () {
         snippets.innerHTML = '';
@@ -317,7 +355,7 @@
         const file = loadExisting.files[0];
         if (!file) return;
         if (!pw1.value) {
-            setStatus('먼저 1번에 비밀번호를 입력해 주세요.', true);
+            setStatus('먼저 2번에 그 시즌의 비밀번호를 입력해 주세요.', true);
             loadExisting.value = '';
             return;
         }
@@ -326,7 +364,7 @@
             contentBox.value = new TextDecoder().decode(plain);
             setStatus('기존 본문을 불러왔습니다.', false);
         } catch (error) {
-            setStatus('불러오기에 실패했습니다. 비밀번호가 맞는지 확인해 주세요.', true);
+            setStatus('불러오기에 실패했습니다. 그 시즌의 비밀번호가 맞는지 확인해 주세요.', true);
         }
         loadExisting.value = '';
     });
@@ -334,6 +372,11 @@
     encryptButton.addEventListener('click', async function () {
         if (!window.crypto || !crypto.subtle) {
             setStatus('이 브라우저에서는 암호화를 지원하지 않습니다. https:// 주소로 접속했는지 확인해 주세요.', true);
+            return;
+        }
+        const seasonId = seasonIdInput.value.trim();
+        if (!SEASON_ID.test(seasonId)) {
+            setStatus('시즌 ID는 영문·숫자로 시작하고, 영문·숫자·- 와 _ 만 쓸 수 있습니다.', true);
             return;
         }
         if (!pw1.value) {
@@ -351,20 +394,27 @@
 
         encryptButton.disabled = true;
         results.innerHTML = '';
+        uploadPaths.innerHTML = '';
         uploadHint.hidden = true;
         setStatus('암호화하는 중...', false);
 
         try {
             const password = pw1.value;
+            const seasonDir = 'files/bookclub/' + seasonId + '/';
+
             const contentBytes = new TextEncoder().encode(contentBox.value);
-            addResult('content.enc', await bcEncrypt(password, contentBytes));
+            addResult('content.enc', await bcEncrypt(password, contentBytes), seasonDir);
 
             for (const file of Array.prototype.slice.call(filesInput.files)) {
                 const encrypted = await bcEncrypt(password, await file.arrayBuffer());
-                addResult(file.name + '.enc', encrypted);
+                addResult(file.name + '.enc', encrypted, seasonDir);
             }
 
-            setStatus('완료되었습니다. 아래 파일을 내려받으세요.', false);
+            const seasons = [seasonId].concat(knownSeasons.filter(function (id) { return id !== seasonId; }));
+            const manifest = new TextEncoder().encode(JSON.stringify({ seasons: seasons }, null, 2) + '\n');
+            addResult('seasons.json', manifest, 'files/bookclub/');
+
+            setStatus('완료되었습니다. 아래 파일을 모두 내려받으세요.', false);
             uploadHint.hidden = false;
         } catch (error) {
             setStatus('암호화에 실패했습니다: ' + error.message, true);
@@ -373,7 +423,7 @@
         }
     });
 
-    function addResult(name, bytes) {
+    function addResult(name, bytes, targetDir) {
         const url = URL.createObjectURL(new Blob([bytes], { type: 'application/octet-stream' }));
         const item = document.createElement('li');
         const label = document.createElement('span');
@@ -386,6 +436,12 @@
         item.appendChild(label);
         item.appendChild(link);
         results.appendChild(item);
+
+        const pathItem = document.createElement('li');
+        const code = document.createElement('code');
+        code.textContent = targetDir + name;
+        pathItem.appendChild(code);
+        uploadPaths.appendChild(pathItem);
     }
 
     document.querySelector('.menu-toggle').addEventListener('click', function () {

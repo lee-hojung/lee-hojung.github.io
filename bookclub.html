@@ -142,7 +142,6 @@
             <li><a href="research.html">Research</a></li>
             <li><a href="teaching.html">Teaching</a></li>
             <li><a href="media.html">Media</a></li>
-            <li><a href="bookclub.html" class="active">Book Club</a></li>
         </ul>
     </nav>
 </header>
@@ -153,7 +152,7 @@
         <section id="gate">
             <p class="lock-intro">
                 This page hosts materials for a private book club I run.
-                자료는 멤버에게 공유된 비밀번호로만 열람할 수 있습니다.
+                자료는 각 시즌 멤버에게 공유된 비밀번호로만 열람할 수 있습니다.
             </p>
             <form class="unlock-box" id="unlock-form" autocomplete="on">
                 <label for="bc-password">Password</label>
@@ -242,9 +241,12 @@
         return new Uint8Array(plain);
     }
 
-    /* --- Book Club 페이지 동작 --- */
-    const CONTENT_URL = 'files/bookclub/content.enc';
-    const FILE_DIR = 'files/bookclub/';
+    /* --- Book Club 페이지 동작 ---
+       시즌마다 비밀번호가 다르다. 입력된 비밀번호로 최신 시즌부터 차례로 열어 보고,
+       처음으로 복호화에 성공한 시즌을 보여준다. */
+    const BASE_DIR = 'files/bookclub/';
+    const MANIFEST_URL = BASE_DIR + 'seasons.json';
+    const SEASON_ID = /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
 
     const form = document.getElementById('unlock-form');
     const passwordInput = document.getElementById('bc-password');
@@ -256,6 +258,7 @@
     const contentBox = document.getElementById('bookclub-content');
 
     let sessionPassword = null;
+    let seasonDir = null;
     let keyCache = {};
 
     function setStatus(el, message, isError) {
@@ -268,6 +271,41 @@
         if (response.status === 404) throw new Error('NOT_FOUND');
         if (!response.ok) throw new Error('HTTP_' + response.status);
         return response.arrayBuffer();
+    }
+
+    async function loadSeasons() {
+        const response = await fetch(MANIFEST_URL, { cache: 'no-store' });
+        if (response.status === 404) throw new Error('NOT_FOUND');
+        if (!response.ok) throw new Error('HTTP_' + response.status);
+        const data = await response.json();
+        const list = Array.isArray(data) ? data : (data && data.seasons);
+        if (!Array.isArray(list)) throw new Error('BAD_FORMAT');
+        const seasons = list.filter(function (id) { return typeof id === 'string' && SEASON_ID.test(id); });
+        if (!seasons.length) throw new Error('NOT_FOUND');
+        return seasons;
+    }
+
+    async function openSeason(password) {
+        const seasons = await loadSeasons();
+        const fetched = await Promise.all(seasons.map(function (id) {
+            return fetchEncrypted(BASE_DIR + id + '/content.enc').then(
+                function (buffer) { return { id: id, buffer: buffer }; },
+                function () { return null; }
+            );
+        }));
+        const available = fetched.filter(Boolean);
+        if (!available.length) throw new Error('NOT_FOUND');
+
+        for (const season of available) {
+            const cache = {};
+            try {
+                const plain = await bcDecrypt(password, season.buffer, cache);
+                return { id: season.id, html: new TextDecoder().decode(plain), cache: cache };
+            } catch (error) {
+                /* 이 시즌 비밀번호가 아니다 — 다음 시즌으로 */
+            }
+        }
+        throw new Error('WRONG_PASSWORD');
     }
 
     form.addEventListener('submit', async function (event) {
@@ -284,23 +322,23 @@
         setStatus(gateStatus, '확인 중...', false);
 
         try {
-            const encrypted = await fetchEncrypted(CONTENT_URL);
-            const cache = {};
-            const plain = await bcDecrypt(password, encrypted, cache);
+            const opened = await openSeason(password);
             sessionPassword = password;
-            keyCache = cache;
+            seasonDir = BASE_DIR + opened.id + '/';
+            keyCache = opened.cache;
             passwordInput.value = '';
-            contentBox.innerHTML = new TextDecoder().decode(plain);
+            contentBox.innerHTML = opened.html;
             wireFileLinks();
             gate.hidden = true;
             vault.hidden = false;
             setStatus(vaultStatus, '', false);
         } catch (error) {
-            if (error && error.message === 'NOT_FOUND') {
+            const reason = error && error.message;
+            if (reason === 'NOT_FOUND') {
                 setStatus(gateStatus, '아직 등록된 자료가 없습니다.', true);
-            } else if (error && error.message === 'BAD_FORMAT') {
-                setStatus(gateStatus, '자료 파일이 손상되었습니다. 관리자에게 알려주세요.', true);
-            } else if (error && String(error.message).indexOf('HTTP_') === 0) {
+            } else if (reason === 'BAD_FORMAT') {
+                setStatus(gateStatus, '자료 목록이 손상되었습니다. 관리자에게 알려주세요.', true);
+            } else if (reason && reason.indexOf('HTTP_') === 0) {
                 setStatus(gateStatus, '자료를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.', true);
             } else {
                 setStatus(gateStatus, '비밀번호가 올바르지 않습니다.', true);
@@ -312,6 +350,7 @@
 
     document.getElementById('lock-again').addEventListener('click', function () {
         sessionPassword = null;
+        seasonDir = null;
         keyCache = {};
         contentBox.innerHTML = '';
         vault.hidden = true;
@@ -341,7 +380,7 @@
         link.textContent = originalText + ' (여는 중...)';
         setStatus(vaultStatus, '', false);
         try {
-            const encrypted = await fetchEncrypted(FILE_DIR + encName);
+            const encrypted = await fetchEncrypted(seasonDir + encName);
             const plain = await bcDecrypt(sessionPassword, encrypted, keyCache);
             const blob = new Blob([plain], { type: guessType(fileName) });
             const url = URL.createObjectURL(blob);
