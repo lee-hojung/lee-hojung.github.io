@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Book Club - Hojung Lee</title>
+   <style>
+    /* ==========================================================================
+       1. 모든 페이지 공통 스타일
+       ========================================================================== */
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.8; color: #333; max-width: 900px; margin: 0 auto; padding: 40px 20px; background-color: #fff; }
+    
+    /* 헤더 & 네비게이션 */
+    .site-header { text-align: center; padding-bottom: 20px; margin-bottom: 40px; position: relative; /* 햄버거 아이콘 위치의 기준점! */ }
+    .site-title { font-size: 2.5em; color: #4a7d9f; margin: 0 0 20px 0; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; }
+    .site-title a { color: inherit; text-decoration: none; }
+    .site-nav { border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; padding: 10px 0; }
+    .site-nav .nav-links { margin: 0; padding: 0; list-style: none; }
+    .site-nav .nav-links li { display: inline-block; margin: 0 15px; }
+    .site-nav .nav-links a { text-decoration: none; color: #555; font-size: 0.9em; text-transform: uppercase; letter-spacing: 2px; padding: 5px 0; }
+    .site-nav .nav-links a.active { font-weight: bold; color: #000; }
+    .menu-toggle { display: none; }
+
+    /* ==========================================================================
+       2. 각 페이지 전용 스타일 
+       ========================================================================== */
+    
+    /* Home 페이지 전용 */
+    .main-container { display: flex; gap: 50px; }
+    .text-column { flex: 2; }
+    .photo-column { flex: 1; }
+    .profile-photo { width: 100%; height: auto; }
+    
+    /* Research, Vitae, Teaching 공통 */
+    h2 { font-size: 1.5em; font-weight: 400; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px; }
+    
+    /* Research 페이지 전용 */
+    .publication-entry { margin-bottom: 2em; }
+    .publication-entry p { margin: 0; padding: 0; }
+    .publication-entry a { color: #007BFF; text-decoration: none; }
+    .publication-entry a:hover { text-decoration: underline; }
+    .status-note { font-style: italic; color: #888; margin-left: 8px; }
+    
+    /* Vitae 페이지 전용 */
+    .vitae-section a { color: #007BFF; text-decoration: none; }
+    .vitae-section a:hover { text-decoration: underline; }
+    .cv-entry { display: flex; gap: 20px; margin-bottom: 1em; }
+    .cv-year { flex: 0 0 120px; color: #555; }
+    .cv-description { flex: 1; }
+    .role-list { margin-top: 0.5em; padding-left: 20px; list-style-type: disc; }
+    .role-list li { margin-bottom: 0.5em; }
+    
+    /* Teaching 페이지 전용 */
+    h3 { font-size: 1.2em; font-weight: bold; margin-top: 30px; margin-bottom: 15px; }
+    .course-list { list-style-type: none; padding-left: 0; }
+    .course-list li { margin-bottom: 1em; }
+    .course-title { margin-right: 0.5em; }
+    .course-details { font-style: italic; color: #555; }
+    .course-list a { color: #007BFF; text-decoration: none; }
+    .course-list a:hover { text-decoration: underline; }
+
+    /* ==========================================================================
+       3. 모바일 최적화 
+       ========================================================================== */
+    @media (max-width: 768px) {
+        body { padding: 20px 15px; }
+        .site-title { font-size: 2em; }
+        .site-nav { border: none; padding: 0; }
+        
+        .menu-toggle {
+            display: block;
+            position: absolute;
+            top: 25px; /* 헤더의 상단에서부터의 거리 */
+            left: 0px; /* 화면 왼쪽 끝에서부터의 거리 */
+            transform: translateY(-50%); /* 세로 중앙 정렬 */
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        /* 메뉴 링크를 '유령'처럼 띄우기 */
+        .site-nav .nav-links {
+            display: none;
+            position: absolute;
+            top: 70px; /* 헤더의 이름 바로 아래에 나타나도록 조정 */
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            text-align: left;
+            background-color: #f8f8f8;
+            padding: 10px 0;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .site-nav .nav-links.active { display: flex; }
+        .site-nav .nav-links li { display: block; padding: 10px 20px; }
+        
+        /* Home 페이지 2단 레이아웃 세로로 쌓기 */
+        .main-container { flex-direction: column; gap: 30px; }
+        
+        /* Vitae 페이지 2단 레이아웃 세로로 쌓기 */
+        .cv-entry { flex-direction: column; gap: 5px; margin-bottom: 1.5em; }
+        .cv-year { flex-basis: auto; font-weight: bold; }
+    }
+    /* Book Club 페이지 전용 */
+    .lock-intro { color: #555; }
+    .unlock-box { border: 1px solid #e0e0e0; background-color: #fafafa; padding: 25px; margin: 30px 0; }
+    .unlock-box label { display: block; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 8px; }
+    .unlock-row { display: flex; gap: 10px; }
+    .unlock-box input[type="password"] { flex: 1; font-family: inherit; font-size: 1em; padding: 10px 12px; border: 1px solid #ccc; background: #fff; }
+    .unlock-box input[type="password"]:focus { outline: none; border-color: #4a7d9f; }
+    .unlock-box button { font-family: inherit; font-size: 0.9em; letter-spacing: 1px; text-transform: uppercase; padding: 10px 22px; border: none; background-color: #4a7d9f; color: #fff; cursor: pointer; }
+    .unlock-box button:hover { background-color: #3c6a89; }
+    .unlock-box button[disabled] { background-color: #a9c1d1; cursor: default; }
+    .status-message { margin: 12px 0 0 0; font-size: 0.9em; min-height: 1.2em; }
+    .status-message.error { color: #c0392b; }
+    .status-message.info { color: #666; }
+    .bookclub-content a { color: #007BFF; text-decoration: none; }
+    .bookclub-content a:hover { text-decoration: underline; }
+    .bookclub-content ul { padding-left: 20px; }
+    .bookclub-content li { margin-bottom: 0.5em; }
+    .locked-file[data-busy="1"] { color: #888; }
+    .content-toolbar { display: flex; justify-content: flex-end; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+    .lock-again { font-family: inherit; font-size: 0.8em; letter-spacing: 1px; text-transform: uppercase; background: none; border: 1px solid #ccc; color: #666; padding: 6px 14px; cursor: pointer; }
+    .lock-again:hover { border-color: #999; color: #333; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <h1 class="site-title">
+        <a href="index.html">Hojung Lee</a>
+    </h1>
+    <nav class="site-nav">
+        <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vitae.html">Vitae</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="teaching.html">Teaching</a></li>
+            <li><a href="media.html">Media</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <main>
+        <h2>Book Club</h2>
+
+        <section id="gate">
+            <p class="lock-intro">
+                This page hosts materials for a private book club I run.
+                자료는 각 시즌 멤버에게 공유된 비밀번호로만 열람할 수 있습니다.
+            </p>
+            <form class="unlock-box" id="unlock-form" autocomplete="on">
+                <label for="bc-password">Password</label>
+                <div class="unlock-row">
+                    <input type="password" id="bc-password" name="password" autocomplete="current-password" required>
+                    <button type="submit" id="unlock-button">Unlock</button>
+                </div>
+                <p class="status-message info" id="gate-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section id="vault" hidden>
+            <div class="content-toolbar">
+                <button type="button" class="lock-again" id="lock-again">Lock</button>
+            </div>
+            <div class="bookclub-content" id="bookclub-content"></div>
+            <p class="status-message info" id="vault-status" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <script>
+    /* --- 공통 암호화 유틸 (AES-256-GCM + PBKDF2-SHA256) ---
+       파일 포맷: "HJBC" + 버전(1) + salt(16) + 반복횟수(4, big-endian) + iv(12) + 암호문+태그 */
+    const BC_MAGIC = [0x48, 0x4a, 0x42, 0x43, 0x01];
+    const BC_HEADER = 37;
+    const BC_ITERATIONS = 310000;
+
+    function bcDeriveKey(password, salt, iterations) {
+        return crypto.subtle
+            .importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey'])
+            .then(function (base) {
+                return crypto.subtle.deriveKey(
+                    { name: 'PBKDF2', salt: salt, iterations: iterations, hash: 'SHA-256' },
+                    base,
+                    { name: 'AES-GCM', length: 256 },
+                    false,
+                    ['encrypt', 'decrypt']
+                );
+            });
+    }
+
+    function bcPack(salt, iterations, iv, cipher) {
+        const out = new Uint8Array(BC_HEADER + cipher.byteLength);
+        out.set(BC_MAGIC, 0);
+        out.set(salt, 5);
+        new DataView(out.buffer).setUint32(21, iterations, false);
+        out.set(iv, 25);
+        out.set(new Uint8Array(cipher), BC_HEADER);
+        return out;
+    }
+
+    function bcUnpack(buffer) {
+        const bytes = new Uint8Array(buffer);
+        if (bytes.length <= BC_HEADER) throw new Error('BAD_FORMAT');
+        for (let i = 0; i < BC_MAGIC.length; i++) {
+            if (bytes[i] !== BC_MAGIC[i]) throw new Error('BAD_FORMAT');
+        }
+        const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+        const iterations = view.getUint32(21, false);
+        if (iterations < 1000 || iterations > 2000000) throw new Error('BAD_FORMAT');
+        return {
+            salt: bytes.slice(5, 21),
+            iterations: iterations,
+            iv: bytes.slice(25, BC_HEADER),
+            data: bytes.slice(BC_HEADER)
+        };
+    }
+
+    async function bcEncrypt(password, plainBytes) {
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const key = await bcDeriveKey(password, salt, BC_ITERATIONS);
+        const cipher = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: iv }, key, plainBytes);
+        return bcPack(salt, BC_ITERATIONS, iv, cipher);
+    }
+
+    async function bcDecrypt(password, buffer, keyCache) {
+        const parsed = bcUnpack(buffer);
+        const cacheKey = Array.from(parsed.salt).join('-') + ':' + parsed.iterations;
+        let key = keyCache && keyCache[cacheKey];
+        if (!key) {
+            key = await bcDeriveKey(password, parsed.salt, parsed.iterations);
+            if (keyCache) keyCache[cacheKey] = key;
+        }
+        const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: parsed.iv }, key, parsed.data);
+        return new Uint8Array(plain);
+    }
+
+    /* --- Book Club 페이지 동작 ---
+       시즌마다 비밀번호가 다르다. 입력된 비밀번호로 최신 시즌부터 차례로 열어 보고,
+       처음으로 복호화에 성공한 시즌을 보여준다. */
+    const BASE_DIR = 'files/bookclub/';
+    const MANIFEST_URL = BASE_DIR + 'seasons.json';
+    const SEASON_ID = /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
+
+    const form = document.getElementById('unlock-form');
+    const passwordInput = document.getElementById('bc-password');
+    const unlockButton = document.getElementById('unlock-button');
+    const gate = document.getElementById('gate');
+    const gateStatus = document.getElementById('gate-status');
+    const vault = document.getElementById('vault');
+    const vaultStatus = document.getElementById('vault-status');
+    const contentBox = document.getElementById('bookclub-content');
+
+    let sessionPassword = null;
+    let seasonDir = null;
+    let keyCache = {};
+
+    function setStatus(el, message, isError) {
+        el.textContent = message;
+        el.className = 'status-message ' + (isError ? 'error' : 'info');
+    }
+
+    async function fetchEncrypted(url) {
+        const response = await fetch(url, { cache: 'no-store' });
+        if (response.status === 404) throw new Error('NOT_FOUND');
+        if (!response.ok) throw new Error('HTTP_' + response.status);
+        return response.arrayBuffer();
+    }
+
+    async function loadSeasons() {
+        const response = await fetch(MANIFEST_URL, { cache: 'no-store' });
+        if (response.status === 404) throw new Error('NOT_FOUND');
+        if (!response.ok) throw new Error('HTTP_' + response.status);
+        const data = await response.json();
+        const list = Array.isArray(data) ? data : (data && data.seasons);
+        if (!Array.isArray(list)) throw new Error('BAD_FORMAT');
+        const seasons = list.filter(function (id) { return typeof id === 'string' && SEASON_ID.test(id); });
+        if (!seasons.length) throw new Error('NOT_FOUND');
+        return seasons;
+    }
+
+    async function openSeason(password) {
+        const seasons = await loadSeasons();
+        const fetched = await Promise.all(seasons.map(function (id) {
+            return fetchEncrypted(BASE_DIR + id + '/content.enc').then(
+                function (buffer) { return { id: id, buffer: buffer }; },
+                function () { return null; }
+            );
+        }));
+        const available = fetched.filter(Boolean);
+        if (!available.length) throw new Error('NOT_FOUND');
+
+        for (const season of available) {
+            const cache = {};
+            try {
+                const plain = await bcDecrypt(password, season.buffer, cache);
+                return { id: season.id, html: new TextDecoder().decode(plain), cache: cache };
+            } catch (error) {
+                /* 이 시즌 비밀번호가 아니다 — 다음 시즌으로 */
+            }
+        }
+        throw new Error('WRONG_PASSWORD');
+    }
+
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const password = passwordInput.value;
+        if (!password) return;
+
+        if (!window.crypto || !crypto.subtle) {
+            setStatus(gateStatus, '이 브라우저에서는 복호화를 지원하지 않습니다. https:// 주소로 접속했는지 확인해 주세요.', true);
+            return;
+        }
+
+        unlockButton.disabled = true;
+        setStatus(gateStatus, '확인 중...', false);
+
+        try {
+            const opened = await openSeason(password);
+            sessionPassword = password;
+            seasonDir = BASE_DIR + opened.id + '/';
+            keyCache = opened.cache;
+            passwordInput.value = '';
+            contentBox.innerHTML = opened.html;
+            wireFileLinks();
+            gate.hidden = true;
+            vault.hidden = false;
+            setStatus(vaultStatus, '', false);
+        } catch (error) {
+            const reason = error && error.message;
+            if (reason === 'NOT_FOUND') {
+                setStatus(gateStatus, '아직 등록된 자료가 없습니다.', true);
+            } else if (reason === 'BAD_FORMAT') {
+                setStatus(gateStatus, '자료 목록이 손상되었습니다. 관리자에게 알려주세요.', true);
+            } else if (reason && reason.indexOf('HTTP_') === 0) {
+                setStatus(gateStatus, '자료를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.', true);
+            } else {
+                setStatus(gateStatus, '비밀번호가 올바르지 않습니다.', true);
+            }
+        } finally {
+            unlockButton.disabled = false;
+        }
+    });
+
+    document.getElementById('lock-again').addEventListener('click', function () {
+        sessionPassword = null;
+        seasonDir = null;
+        keyCache = {};
+        contentBox.innerHTML = '';
+        vault.hidden = true;
+        gate.hidden = false;
+        setStatus(gateStatus, '', false);
+        passwordInput.focus();
+    });
+
+    function wireFileLinks() {
+        const links = contentBox.querySelectorAll('[data-enc]');
+        Array.prototype.forEach.call(links, function (link) {
+            const encName = link.getAttribute('data-enc');
+            const fileName = link.getAttribute('data-name') || encName.replace(/\.enc$/, '');
+            link.classList.add('locked-file');
+            if (link.tagName === 'A' && !link.getAttribute('href')) link.setAttribute('href', '#');
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                openEncryptedFile(link, encName, fileName);
+            });
+        });
+    }
+
+    async function openEncryptedFile(link, encName, fileName) {
+        if (!sessionPassword || link.getAttribute('data-busy') === '1') return;
+        const originalText = link.textContent;
+        link.setAttribute('data-busy', '1');
+        link.textContent = originalText + ' (여는 중...)';
+        setStatus(vaultStatus, '', false);
+        try {
+            const encrypted = await fetchEncrypted(seasonDir + encName);
+            const plain = await bcDecrypt(sessionPassword, encrypted, keyCache);
+            const blob = new Blob([plain], { type: guessType(fileName) });
+            const url = URL.createObjectURL(blob);
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.download = fileName;
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+            setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+        } catch (error) {
+            if (error && error.message === 'NOT_FOUND') {
+                setStatus(vaultStatus, fileName + ' 파일을 찾을 수 없습니다.', true);
+            } else {
+                setStatus(vaultStatus, fileName + ' 파일을 여는 데 실패했습니다. (다른 비밀번호로 암호화된 파일일 수 있습니다)', true);
+            }
+        } finally {
+            link.removeAttribute('data-busy');
+            link.textContent = originalText;
+        }
+    }
+
+    function guessType(fileName) {
+        const ext = fileName.toLowerCase().split('.').pop();
+        const types = {
+            pdf: 'application/pdf', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg',
+            gif: 'image/gif', txt: 'text/plain', md: 'text/plain', csv: 'text/csv',
+            docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            zip: 'application/zip', epub: 'application/epub+zip', mp3: 'audio/mpeg', mp4: 'video/mp4'
+        };
+        return types[ext] || 'application/octet-stream';
+    }
+
+    document.querySelector('.menu-toggle').addEventListener('click', function () {
+        document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    </script>
+
+</body>
+</html>
