@@ -58,6 +58,13 @@
     .course-details { font-style: italic; color: #555; }
     .course-list a { color: #007BFF; text-decoration: none; }
     .course-list a:hover { text-decoration: underline; }
+    .student-comments { margin-top: 10px; font-size: 0.9em; }
+    .student-comments summary { cursor: pointer; color: #4a7d9f; font-style: italic; padding: 4px 0; list-style-position: outside; }
+    .student-comments summary:hover { text-decoration: underline; }
+    .student-comments[open] summary { margin-bottom: 6px; }
+    .comment-group { margin-top: 12px; }
+    .comment-tag { margin: 8px 0 4px 0; font-style: italic; color: #555; font-weight: 500; }
+    .student-comments blockquote { margin: 4px 0 4px 0; padding: 2px 0 2px 12px; border-left: 3px solid #d0d0d0; color: #555; font-style: italic; line-height: 1.6; }
 
     /* ==========================================================================
        3. 모바일 최적화 (수정된 최종본)
@@ -135,6 +142,23 @@
                     <span class="course-title">SPPA 704: Advanced Quantitative Methods</span>
                     <span class="course-details">(Spring 2025)</span>
                     - Instructor Evaluation (4.93/5), Course Evaluation (4.68/5) <a href="files/courseeval_ud_sppa704_spr25.pdf" target="_blank"> Link </a>
+                    <details class="student-comments">
+                        <summary>Selected student comments (anonymous)</summary>
+                        <div class="comment-group">
+                            <p class="comment-tag">On course strengths</p>
+                            <blockquote>"This is a very important course, providing essential knowledge about quantitative methods for showing causation. The instructor was very good at explaining the material in bite-size chunks."</blockquote>
+                        </div>
+                        <div class="comment-group">
+                            <p class="comment-tag">On the weekly Stata coding sessions</p>
+                            <blockquote>"The coding sessions were really helpful. Having a guided walkthrough in class, then trying it independently, and later reviewing it together made the material stick. It also helped that the focus was on understanding the method and its purpose, not just the math, which made things clearer and less intimidating."</blockquote>
+                        </div>
+                        <div class="comment-group">
+                            <p class="comment-tag">Overall impressions</p>
+                            <blockquote>"I would describe this course as challenging but very useful. The professor explained complex topics clearly and focused on helping us understand the methods rather than the math, which made everything feel more approachable."</blockquote>
+                            <blockquote>"The strengths include the material being taught and the coding sessions. There are no weaknesses to taking this course, especially for quantitative researchers who use STATA."</blockquote>
+                            <blockquote>"I think everyone in my program should take this course. It's essential to what we do. I think the instructor's mix of theoretical and practical was just right."</blockquote>
+                        </div>
+                    </details>
                 </li>
             </ul>
         </section>
