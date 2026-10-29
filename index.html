@@ -152,6 +152,7 @@
     </main>
 
     <footer class="site-footer">
+        <p>&copy; <span class="copyright-year">2026</span> Hojung Lee. All rights reserved.</p>
         <p id="last-updated"></p>
     </footer>
 
@@ -159,6 +160,8 @@
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.nav-links').classList.toggle('active');
         });
+
+        document.querySelectorAll('.copyright-year').forEach(el => el.textContent = new Date().getFullYear());
 
         fetch('https://api.github.com/repos/lee-hojung/lee-hojung.github.io/commits?per_page=1')
             .then(r => r.ok ? r.json() : Promise.reject())
